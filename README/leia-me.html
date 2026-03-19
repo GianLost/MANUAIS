@@ -6,492 +6,852 @@
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LEIA ME - Pós-Instalação</title>
+        <title>LEIA ME</title>
 
         <style>
             :root{
-            --bg:#010409;
-            --card:#0d1117;
-            --accent:#58a6ff;
-            --accent2:#38444ae4;
-            --text:#989a9c;
-            --muted:#9ca3af;
-            --border:#1f2937;
+                --bg:#010409;
+                --card:#0d1117;
+                --accent:#2c83e6ea;
+                --accent2:#38444ae4;
+                --text:#989a9c;
+                --muted:#9ca3af;
+                --border:#1f2937;
+                --white:#ffffff;
+                --radius:12px;
+                --radius-sm:8px;
             }
+
             *{box-sizing:border-box}
+
             body{
-            margin:0;
-            font-family:Segoe UI,Arial,sans-serif;
-            background:var(--bg);
-            font-size: 1rem;
-            color:var(--text);
+                margin:0;
+                font-family:Segoe UI,Arial,sans-serif;
+                background:var(--bg);
+                font-size:1rem;
+                color:var(--text);
             }
-            h1 {
-                color: #fff;
+
+            .layout{
+                display: flex;
+                min-height: 100vh;
             }
-            h3{
-                font-size: 1rem;
-                margin-bottom: 0;
-                margin-top: 1rem;
-                color: #ffffff;
+
+            /* sidebar */
+            .sidebar{
+                width: 20.5rem;
+                flex-shrink: 0;
+                padding: 3rem;
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                height: 100vh;
             }
-            strong {
-                color: #dddddd;
+
+            .sidebar h3{
+                margin-top:0;
+                color:var(--white);
             }
+
+            .sidebar a{
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                color:var(--text);
+                text-decoration:none;
+                margin:10px 0;
+                font-size:0.9rem;
+                position:relative;
+                padding-bottom:4px;
+            }
+
+            .sidebar a::before{
+                content:"";
+                width:6px;
+                height:6px;
+                border-right:2px solid var(--text);
+                border-bottom:2px solid var(--text);
+                transform:rotate(-45deg);
+                margin-right:8px;
+                transition:all .2s ease;
+            }
+
+            .sidebar a:hover::before{
+                transform:translateX(4px) rotate(-45deg);
+                border-color:var(--accent);
+            }
+
+            .sidebar a.active::before{
+                transform:translateX(4px) rotate(-45deg);
+                border-color:var(--accent);
+            }
+
+            .sidebar a.active{
+                color: var(--accent);
+            }
+
+            .sidebar a.active::after{
+                width: 100%;
+            }
+
+            .sidebar a::after{
+                content:"";
+                position:absolute;
+                left:0;
+                bottom:0;
+                width:0%;
+                height:2px;
+                background:var(--accent);
+                transition:width .3s ease;
+            }
+
+            .sidebar a:hover::after{
+                width: 100%;
+            }
+
+            .sidebar a:hover{
+                color:var(--accent);
+            }
+
+            /* área da direita */
+            .content{
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                margin: auto;
+            }
+
+            /* layout */
             .container{
-            max-width:1000px;
-            margin:30px auto;
-            padding:20px;
+                max-width: 65rem;
+                width: 90%;
+                padding: 20px;
             }
-            .card{
-            background:var(--card);
-            border:1px solid var(--border);
-            border-radius:12px;
-            padding:20px;
-            margin-bottom:20px;
-            }
-            button {
-                font-weight: bold;
-            }
+
+            /* títulos */
             h1{
-            text-align:center;
+                text-align:center;
+                color:var(--white);
+                margin-top: 2rem;
             }
+
             h2{
-            color:var(--accent);
+                color:var(--accent);
             }
+
+            h3{
+                font-size:1rem;
+                margin:1rem 0 0;
+                color:var(--white);
+            }
+
+            strong{
+                color:#dddddd;
+            }
+
+            /* cards */
+            .card{
+                background:var(--card);
+                border:1px solid var(--border);
+                border-radius:var(--radius);
+                margin-bottom:20px;
+            }
+
+            details.card{
+                padding:0;
+                overflow:hidden;
+            }
+
+            details summary{
+                list-style:none;
+                cursor:pointer;
+                padding:20px;
+                font-weight:bold;
+                color:var(--accent);
+                border-bottom:1px solid var(--border);
+                position:relative;
+            }
+
+            details summary::after{
+                content:"";
+                width:10px;
+                height:10px;
+                border-right:2px solid var(--accent);
+                border-bottom:2px solid var(--accent);
+                transform:rotate(-45deg);
+                position:absolute;
+                right:20px;
+                top:50%;
+                translate:0 -50%;
+                transition:transform .2s ease;
+            }
+
+            details[open] summary::after{
+                transform:rotate(45deg);
+            }
+
+            .card-content{
+                padding:20px;
+            }
+
+            /* util */
             .step{margin:10px 0}
+
+            /* copy box */
             .copy-box{
-            color: #fff;
-            background: var(--bg);
-            border:1px solid var(--border);
-            padding:10px;
-            border-radius:8px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            position:relative;
-            margin-top:8px;
+                color:var(--white);
+                background:var(--bg);
+                border:1px solid var(--border);
+                padding:10px;
+                border-radius:var(--radius-sm);
+                font-family:monospace;
+                font-size:0.85rem;
+                position:relative;
+                margin-top:8px;
             }
+
+            /* tooltip */
             .tooltip{
-            position:absolute;
-            top:-28px;
-            right:10px;
-            background:var(--accent2);
-            color:#ffffff;
-            padding:4px 8px;
-            border-radius:6px;
-            font-size:12px;
-            font-weight: bold;
-            opacity:0;
-            transform:translateY(5px);
-            transition:all .2s ease;
-            pointer-events:none;
+                position:absolute;
+                top:-28px;
+                right:10px;
+                background:var(--accent2);
+                color:var(--white);
+                padding:4px 8px;
+                border-radius:6px;
+                font-size:12px;
+                font-weight:bold;
+                opacity:0;
+                transform:translateY(5px);
+                transition:all .2s ease;
+                pointer-events:none;
             }
+
             .tooltip.show{
-            opacity:1;
-            transform:translateY(0);
+                opacity:1;
+                transform:translateY(0);
             }
+
+            /* botões */
             button{
-            position:absolute;
-            top:5px;
-            right:5px;
-            background:var(--accent);
-            border:none;
-            color:#ffffff;
-            padding:5px 10px;
-            border-radius:6px;
-            cursor:pointer;
+                position:absolute;
+                top:5px;
+                right:5px;
+                background:var(--accent);
+                border:none;
+                color:var(--white);
+                padding:5px 10px;
+                border-radius:6px;
+                cursor:pointer;
+                font-weight:bold;
             }
-            button:hover{opacity:.8}
+
+            button:hover{
+                opacity:.8;
+            }
+
+            /* footer */
             .footer{
-            text-align:center;
-            color:var(--muted);
-            margin-top:20px;
+                padding: 2rem;
+                text-align:center;
+                color:var(--muted);
             }
+            
         </style>
 
     </head>
 
     <body>
 
-        <div class="container">
+        <div class="layout">
 
-            <h1>Pós-Instalação</h1>
+            <!-- Menu lateral -->
+            <nav class="sidebar">
+                <a href="#dominio">Adicionar ao Domínio</a>
+                <a href="#admin-local">Adicionar Administrador Local</a>
+                <a href="#kaspersky">Instalar Kaspersky</a>
+                <a href="#ativacao">Ativação Windows e Office</a>
+                <a href="#realvnc">Ativação do RealVNC</a>
+                <a href="#siap">Instalação do SIAP</a>
+            </nav>
+    
+            <main class="content">
 
-            <p>
-                Este é um guia com o passo a passo à ser realizado após o fim da instalação do <strong>Windows 10 MOD 2026</strong> para instalar e configurar as principais ferramentas de trabalho e garantir o funcionamento adequado dos recursos utilizados nas estações de trabalho da <strong>Prefeitura Municipal de Três Marias</strong>.
-            </p>
-
-            <p>
-                Após finalizar a instalação inicial do sistema e aplicar alterações básicas como as atualizações de drivers prossiga com:
-            </p>
-
-            <!-- Adicionando estação no Domínio tresmarias.mg -->
-            <div class="card">
-
-                <h2>Adicionar estação no domínio tresmarias.mg</h2>
-
-                <p>
-                    Inicialmente renomeie a máquina de acordo com o setor de destino ou secretaria para a qual será enviada.
-                </p>
-
-                <p>
-                    Acesse as configurações de sistema utilizando o atalho <strong>WIN + X</strong>, selecione <strong>Sistema</strong>, busque pela opção <strong>Renomear este computador</strong> ou <strong>Adicionar ao Domínio ou Grupo de Trabalho</strong>
-                </p>
-
-                <p>
-                    Na janela eque se abrir escolha a opção <strong>Alterar</strong>, uma nova janela se abrirá.
-                </p>
-
-                <p>
-                    Em <strong>Nome do computador</strong> aplique um nome como dito antes de acordo com sua destinação, em seguida no campo <strong>Membro de</strong> marque a opção <strong>Domínio</strong> e preencha com:
-                </p>
-
-                <div class="copy-box" id="cmd2">
-                    <span class="tooltip">Copiado!</span>
-                    tresmarias.mg
-                    <button onclick="copiar('cmd2')">Copiar</button>
-                </div>
-
-                <p>
-                    Em seguida utilize credenciais administrativas (usuário e senha) para prosseguir com a implantação da estação no domínio local.
-                </p>
-
-                <p>
-                    Caso ocorra erro em encontrar o domínio pode ser necessário alterar as configurações de DNS nos adaptadores de rede da estação.
-                </p>
-
-                <p>
-                    Para isto abra o painel de controle utilizando o atalho <strong>WIN + R</strong> pesquise por <strong>control</strong>, acesse a opção <strong>Central de Rede e Compartilhamento</strong> em seguida <strong>Alterar configurações de adaptador</strong> no menu lateral esquerdo.
-                </p>
-
-                <p>
-                    Uma janela listando os adaptadores da estação será exibida, selecione o adaptador em uso na estação, clique com o botão direito e selecione <strong>Propriedades</strong> use a barra de rolagem para ir até <strong>Protocolo de Internet Versão 4 (TCP/IPv4)</strong>, clique duas vezes sobre a opção para abrir suas configurações.
-                </p>
-
-                <p>
-                    Na nova janela que se abre marque a opção <strong>Utilize os seguintes servidores DNS</strong> e preencha apenas o primeiro campo com:
-                </p>
-
-                <div class="copy-box" id="cmd2">
-                    <span class="tooltip">Copiado!</span>
-                    172.18.25.1
-                    <button onclick="copiar('cmd2')">Copiar</button>
-                </div>
-
-                <p>
-                    Em seguida clique em <strong>OK</strong>, Salve as alterações realizadas no adaptador e refaça o processo de adicionar a estação ao <strong>Domínio</strong>.
-                </p>
-
-                <p>
-                    Após obter sucesso em adicionar a estação no domínio pode ser feito o mesmo procedimento para remover o DNS manual adicionado anteriormente.
-                </p>
-
-            </div>
-
-            <!-- Adicionando grupo de usuários do setor como Administrador Local -->
-            <div class="card">
-
-                <h2>Adicionar usuário como Administrador Local</h2>
-
-                <p>
-                    Seguindo as recomendações do sistema <strong>Siap</strong> que veremos ao final deste manual, é importante adicionar o <strong>Grupo</strong> de usuários do <strong>Setor</strong> ou <strong>Secretaria</strong> ao qual a estação será destinada como <strong>Administrador</strong> local da máquina para garantir o acesso e funcionamento adequado do sistema.
-                </p>
-
-                <p>
-                    Com isso também garantimos que usuários do mesmo setor possuam privilégios administrativos locais nesta estação para realizarem tarefas que por muita das vezes não exige intervenção técnica, como por exemplo execução e instalação de alguns softwares utilizados no dia a dia.
-                </p>
-
-                <p>
-                    Para adicionarmos o grupo de usuários do setor como admonistrador local, utilize o atalho <strong>CTRL + X</strong> selecione a opção <strong>Gerenciamento de Computadores</strong>.
-                </p>
-
-                <p>
-                    Na janela que se abrirá vá até <strong>Usuários e Grupos Locais</strong> em seguida <strong>Grupos</strong>, clique duas vezes sobre o grupo <strong>Administradores</strong> para abrir suas configurações.
-                </p>
-
-                <p>
-                    Em seguida clique em <strong>Adicionar</strong>, insira o nome do grupo na caixa de texto <strong>(EX: cpd)</strong>, clique em <strong>Verificar Nomes</strong> para validar o nome do grupo, em seguida clique em <strong>Ok</strong> para finalizar a adição do grupo como administrador local da máquina.
-                </p>
-
-            </div>
-
-            <!-- Instalação do Agente de Rede Kaspersky -->
-            <div class="card">
-
-                <h2>Instalação do Agente de Rede Kaspersky</h2>
-
-                <p>
-                    Na Área de trabalho você encontrará o executável <strong>Installer.exe</strong> com o ícone do <strong>Kaspersky</strong> execute-o clicando com o botão direito sobre ele e em <strong>executar como administrador</strong> siga o instalador clicando em avançar e por fim em finalizar.
-                </p>
-
-            </div>
-
-            <!-- Ativação Windows e Office -->
-            <div class="card">
-
-                <h2>Ativação do Windows/Office</h2>
-
-                <p>Execute no <strong>PowerShell</strong> como administrador:</p>
-
-                <div class="copy-box" id="cmd1">
-                    <span class="tooltip">Copiado!</span>
-                    irm https://get.activated.win | iex
-                    <button onclick="copiar('cmd1')">Copiar</button>
-                </div>
-
-                <p>
-                    O comando abrirá uma nova janela com algumas opções.
-                    Para realizar a ativação do <strong>Windows</strong> e do <strong>Office</strong> utilize as seguintes opções:
-                </p>
-
-                <ul style="list-style: none; margin: 0; padding: 0;">
-                    <li><strong>Windows:</strong> Opção 1 (HWID).</li>
+                <div class="container">
+    
+                    <h1>Pós-Instalação</h1>
+        
                     <p>
-                        Aguarde a conclusão e utilize a opção <strong>0</strong> para voltar ao menu inicial
+                        Este é um guia com o passo a passo a ser realizado caso você tenha utilizado
+                        a <strong>W10_MOD_2026.iso</strong> para instalar o seu sistema operacional.
                     </p>
-                    <li><strong>Office:</strong> Opção 2 (Ohook) em seguida a opção 1 (Install Ohook Office Activation)</li>
+                    
                     <p>
-                        Aguarde a conclusão em sequência utilize a opção <strong>0</strong> duas vezes para encerrar o script.
+                        Após concluir a instalação do sistema e aplicar alterações básicas, como as
+                        atualizações de drivers, siga as instruções a seguir para configurarmos as
+                        principais ferramentas de trabalho e garantir o funcionamento adequado dos
+                        recursos utilizados nas estações de trabalho da
+                        <strong>Prefeitura Municipal de Três Marias</strong>.
                     </p>
-                </ul>
-
-            </div>
-
-            <!-- Ativação do RealVNC -->
-            <div class="card">
-
-                <h2>Ativação e configuração do RealVNC</h2>
-
-                <p>
-                    O <strong>RealVNC</strong> está pré instalado na sua máquina, mas alguns procedimentos devem ser realizados para o perfeito funcionamento do software.
-                </p>
-
-                <p>
-                    Para realizar a ativação abra o <strong>RealVNC Server</strong> e clique sobre o ícone de erro apresentado na barra superior. Selecione a <strong>ativação por chave/licença do RealVNC</strong>. Utilize uma das chaves abaixo para realizar a ativação do <strong>RealVNC</strong>.
-                </p>
-
-                <h3>Chaves de Ativação:</h3>
-                <div class="copy-box">
-                    <span class="tooltip">Copiado!</span>
-
-                    <div style="display: flex; flex-direction: column;">
-                        <span>H2HN2-247ER-T93SE-XRNPV-KX8VA</span>
-                        <span>HRB3B-ABNER-XU3EK-QU2UW-8UQQA</span>
-                        <span>BN4AB-62DEN-RU5CW-GGQVF-FGZKA</span>
-                        <span>BR2D2-D43ED-R8ECR-LDU6R-TVN8A</span>
-                        <span>4A222-322EN-X45QU-3PSNX-VF26A</span>
-                        <span>46464-2BA3R-X8EBE-BJ28Q-7SRZA</span>
-                        <span>BQNVB-J443T-R53D4-JA4V7-NFPGA</span>
-                        <span>8358V-3S9P9-U3FA9-U3JC3-SZ9CA</span>
-                        <span>5PZZ5-AXFZM-GKL37-K9WQ2-42Z9A</span>
-                        <span>KK3F4-MDEPE-MY36L-EPLBC-8SWXA</span>
-                    </div>
+        
+                    <!-- Adicionando estação no Domínio tresmarias.mg -->
+                    <details class="card" id="dominio">
+        
+                        <summary>Adicionar estação no domínio tresmarias.mg</summary>
+        
+                        <div class="card-content">
+                            <p>
+                                Inicialmente renomeie a máquina de acordo com o setor de
+                                destino ou secretaria para a qual será enviada.
+                            </p>
+        
+                            <p>
+                                Acesse as configurações de sistema utilizando o atalho
+                                <strong>WIN + X</strong>, selecione
+                                <strong>Sistema</strong>, busque pela opção
+                                <strong>Renomear este computador</strong> ou
+                                <strong>Adicionar ao Domínio ou Grupo de
+                                    Trabalho</strong>
+                            </p>
+        
+                            <p>
+                                Na janela eque se abrir escolha a opção
+                                <strong>Alterar</strong>, uma nova janela se abrirá.
+                            </p>
+        
+                            <p>
+                                Em <strong>Nome do computador</strong> aplique um nome
+                                como dito antes de acordo com sua destinação, em seguida
+                                no campo <strong>Membro de</strong> marque a opção
+                                <strong>Domínio</strong> e preencha com:
+                            </p>
+        
+                            <div class="copy-box" id="cmd2">
+                                <span class="tooltip">Copiado!</span>
+                                tresmarias.mg
+                                <button onclick="copiar('cmd2')">Copiar</button>
+                            </div>
+        
+                            <p>
+                                Em seguida utilize credenciais administrativas (usuário
+                                e senha) para prosseguir com a implantação da estação no
+                                domínio local.
+                            </p>
+        
+                            <p>
+                                Caso ocorra erro em encontrar o domínio pode ser
+                                necessário alterar as configurações de DNS nos
+                                adaptadores de rede da estação.
+                            </p>
+        
+                            <p>
+                                Para isto abra o painel de controle utilizando o atalho
+                                <strong>WIN + R</strong> pesquise por
+                                <strong>control</strong>, acesse a opção <strong>Central
+                                    de Rede e Compartilhamento</strong> em seguida
+                                <strong>Alterar configurações de adaptador</strong> no
+                                menu lateral esquerdo.
+                            </p>
+        
+                            <p>
+                                Uma janela listando os adaptadores da estação será
+                                exibida, selecione o adaptador em uso na estação, clique
+                                com o botão direito e selecione
+                                <strong>Propriedades</strong> use a barra de rolagem
+                                para ir até <strong>Protocolo de Internet Versão 4
+                                    (TCP/IPv4)</strong>, clique duas vezes sobre a opção
+                                para abrir suas configurações.
+                            </p>
+        
+                            <p>
+                                Na nova janela que se abre marque a opção
+                                <strong>Utilize os seguintes servidores DNS</strong> e
+                                preencha apenas o primeiro campo com:
+                            </p>
+        
+                            <div class="copy-box" id="cmd2">
+                                <span class="tooltip">Copiado!</span>
+                                172.18.25.1
+                                <button onclick="copiar('cmd2')">Copiar</button>
+                            </div>
+        
+                            <p>
+                                Em seguida clique em <strong>OK</strong>, Salve as
+                                alterações realizadas no adaptador e refaça o processo
+                                de adicionar a estação ao <strong>Domínio</strong>.
+                            </p>
+        
+                            <p>
+                                Após obter sucesso em adicionar a estação no domínio
+                                pode ser feito o mesmo procedimento para remover o DNS
+                                manual adicionado anteriormente.
+                            </p>
+        
+                        </div>
+        
+                    </details>
+        
+                    <!-- Adicionando grupo de usuários do setor como Administrador Local -->
+                    <details class="card" id="admin-local">
+        
+                        <summary>Adicionar usuário como Administrador Local</summary>
+        
+                        <div class="card-content">
+                            <p>
+                                Seguindo as recomendações do sistema <strong>Siap</strong>
+                                que veremos ao final deste manual, é importante adicionar o
+                                <strong>Grupo</strong> de usuários do <strong>Setor</strong>
+                                ou <strong>Secretaria</strong> ao qual a estação será
+                                destinada como <strong>Administrador</strong> local da
+                                máquina para garantir o acesso e funcionamento adequado do
+                                sistema.
+                            </p>
+            
+                            <p>
+                                Com isso também garantimos que usuários do mesmo setor
+                                possuam privilégios administrativos locais nesta estação
+                                para realizarem tarefas que por muita das vezes não exige
+                                intervenção técnica, como por exemplo execução e instalação
+                                de alguns softwares utilizados no dia a dia.
+                            </p>
+            
+                            <p>
+                                Para adicionarmos o grupo de usuários do setor como
+                                admonistrador local, utilize o atalho <strong>CTRL +
+                                    X</strong> selecione a opção <strong>Gerenciamento de
+                                    Computadores</strong>.
+                            </p>
+            
+                            <p>
+                                Na janela que se abrirá vá até <strong>Usuários e Grupos
+                                    Locais</strong> em seguida <strong>Grupos</strong>,
+                                clique duas vezes sobre o grupo
+                                <strong>Administradores</strong> para abrir suas
+                                configurações.
+                            </p>
+            
+                            <p>
+                                Em seguida clique em <strong>Adicionar</strong>, insira o
+                                nome do grupo na caixa de texto <strong>(EX: cpd)</strong>,
+                                clique em <strong>Verificar Nomes</strong> para validar o
+                                nome do grupo, em seguida clique em <strong>Ok</strong> para
+                                finalizar a adição do grupo como administrador local da
+                                máquina.
+                            </p>
+                        </div>
+        
+                    </details>
+        
+                    <!-- Instalação do Agente de Rede Kaspersky -->
+                    <details class="card" id="kaspersky">
+        
+                        <summary>Instalação do Agente de Rede Kaspersky</summary>
+        
+                        <div class="card-content">
+            
+                            <p>
+                                Na Área de trabalho você encontrará o executável
+                                <strong>Installer.exe</strong> com o ícone do
+                                <strong>Kaspersky</strong> execute-o clicando com o botão
+                                direito sobre ele e em <strong>executar como
+                                    administrador</strong> siga o instalador clicando em
+                                avançar e por fim em finalizar.
+                            </p>
+            
+                        </div>
+        
+                    </details>
+        
+                    <!-- Ativação Windows e Office -->
+                    <details class="card" id="ativacao">
+        
+                        <summary>Ativação do Windows e Office</summary>
+        
+                        <div class="card-content">
+            
+                            <p>Execute no <strong>PowerShell</strong> como
+                                administrador:</p>
+            
+                            <div class="copy-box" id="cmd1">
+                                <span class="tooltip">Copiado!</span>
+                                irm https://get.activated.win | iex
+                                <button onclick="copiar('cmd1')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                O comando abrirá uma nova janela com algumas opções.
+                                Para realizar a ativação do <strong>Windows</strong> e do
+                                <strong>Office</strong> utilize as seguintes opções:
+                            </p>
+            
+                            <ul style="list-style: none; margin: 0; padding: 0;">
+                                <li><strong>Windows:</strong><p> - Opção 1 (HWID).</p></li>
+                                <p>
+                                    Aguarde a conclusão e utilize a opção <strong>0</strong>
+                                    para voltar ao menu inicial
+                                </p>
+                                <li><strong>Office:</strong><p> - Opção 2 (Ohook) em seguida a
+                                    opção 1 (Install Ohook Office Activation)</p></li>
+                                <p>
+                                    Aguarde a conclusão em sequência utilize a opção
+                                    <strong>0</strong> duas vezes para encerrar o script.
+                                </p>
+                            </ul>
+            
+                        </div>
+        
+                    </details>
+        
+                    <!-- Ativação do RealVNC -->
+                    <details class="card" id="realvnc">
+        
+                        <summary>Ativação e configuração do RealVNC</summary>
+        
+                        <div class="card-content">
+            
+                            <p>
+                                O <strong>RealVNC</strong> está pré instalado na sua
+                                máquina, mas alguns procedimentos devem ser realizados para
+                                o perfeito funcionamento do software.
+                            </p>
+            
+                            <p>
+                                Para realizar a ativação abra o <strong>RealVNC
+                                    Server</strong> e clique sobre o ícone de erro
+                                apresentado na barra superior. Selecione a <strong>ativação
+                                    por chave/licença do RealVNC</strong>. Utilize uma das
+                                chaves abaixo para realizar a ativação do
+                                <strong>RealVNC</strong>.
+                            </p>
+            
+                            <h3>Chaves de Ativação:</h3>
+                            <div class="copy-box">
+                                <span class="tooltip">Copiado!</span>
+            
+                                <div style="display: flex; flex-direction: column;">
+                                    <span>H2HN2-247ER-T93SE-XRNPV-KX8VA</span>
+                                    <span>HRB3B-ABNER-XU3EK-QU2UW-8UQQA</span>
+                                    <span>BN4AB-62DEN-RU5CW-GGQVF-FGZKA</span>
+                                    <span>BR2D2-D43ED-R8ECR-LDU6R-TVN8A</span>
+                                    <span>4A222-322EN-X45QU-3PSNX-VF26A</span>
+                                    <span>46464-2BA3R-X8EBE-BJ28Q-7SRZA</span>
+                                    <span>BQNVB-J443T-R53D4-JA4V7-NFPGA</span>
+                                    <span>8358V-3S9P9-U3FA9-U3JC3-SZ9CA</span>
+                                    <span>5PZZ5-AXFZM-GKL37-K9WQ2-42Z9A</span>
+                                    <span>KK3F4-MDEPE-MY36L-EPLBC-8SWXA</span>
+                                </div>
+                            </div>
+            
+                            <p>
+                                Após realizar a ativação seu <strong>RealVNC</strong> agora
+                                será necessário configurar o <strong>firewall</strong> da
+                                máquina para permitir a comunicação com a porta utilizada
+                                pelo serviço do <strong>RealVNC</strong>.
+                            </p>
+            
+                            <p>
+                                Para realizar a liberação no <strong>firewall</strong> abra
+                                o <strong>prompt de comando/cmd</strong> executando-o como
+                                administrador.
+                            </p>
+            
+                            <p>
+                                Copie e cole a instrução a seguir no terminal:
+                            </p>
+            
+                            <div class="copy-box" id="cmd3">
+                                <span class="tooltip">Copiado!</span>
+                                netsh advfirewall firewall add rule name="RealVnc"
+                                protocol=TCP dir=in localport=5900 action=allow
+                                <button onclick="copiar('cmd3')">Copiar</button>
+                            </div>
+            
+                        </div>
+        
+                    </details>
+        
+                    <!-- Instalação do SIAP -->
+                    <details class="card" id="siap">
+        
+                        <summary>Instalação e configuração do SIAP</summary>
+        
+                        <div class="card-content">
+            
+                            <p>
+                                Para acessar o instalador do <strong>Siap</strong>, abra o
+                                explorador de arquivos utilizando o atalho <strong>Win +
+                                    E</strong>, na barra busca insira o endereço:
+                            </p>
+            
+                            <div class="copy-box" id="cmd4">
+                                <span class="tooltip">Copiado!</span>
+                                \\172.18.25.3\cpd\Sistemas PMTM\Instalacao do siap
+                                <button onclick="copiar('cmd4')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Copie para sua Área de trabalho o arquivo
+                                <strong>instalador.exe</strong> .
+                            </p>
+            
+                            <p>
+                                Para obter os arquivos de atualização necessários na
+                                instalação do <strong>Siap</strong> acesse também na barra
+                                de busca o endereço:
+                            </p>
+            
+                            <div class="copy-box" id="cmd5">
+                                <span class="tooltip">Copiado!</span>
+                                \\172.18.25.1\atualizacao
+                                <button onclick="copiar('cmd5')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Selecione todos os arquivos do diretório e copie para uma
+                                nova pasta na sua Área de trabalho.
+                            </p>
+            
+                            <p>
+                                Para realizar a instalação execute o
+                                <strong>instalador.exe</strong> como administrador.
+                                Siga o instalador avançando e no fim clique em finalizar.
+                            </p>
+            
+                            <p>
+                                Acesse a pasta em que você copiou os arquivos de instalação,
+                                selecione todos os arquivos, copie-os para o diretório de
+                                instalação do <strong>Siap</strong> em:
+                            </p>
+            
+                            <div class="copy-box" id="cmd6">
+                                <span class="tooltip">Copiado!</span>
+                                C:\Program Files (x86)\Siap
+                                <button onclick="copiar('cmd6')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Finalizando a cópia volte um nível nas pastas para o
+                                diretório:
+                            </p>
+            
+                            <div class="copy-box" id="cmd6">
+                                <span class="tooltip">Copiado!</span>
+                                C:\Program Files (x86)
+                                <button onclick="copiar('cmd6')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Vá até a pasta <strong>Siap</strong> clique com o botão
+                                direito sobre e vá para propriedades.
+                            </p>
+            
+                            <p>
+                                Na aba <strong>Segurança</strong> vá em
+                                <strong>Editar</strong> em seguida clique em
+                                <strong>Adicionar</strong> e adicione <strong>Todos</strong>
+                                na lista.
+                            </p>
+            
+                            <p>
+                                Retorne para a Área de Trabalho execute o
+                                <strong>Siap</strong> como administrador.
+                            </p>
+            
+                            <p>
+                                Na janela inicial que abrirá copie e cole os seguintes
+                                caminhos nos respectivos campos:
+                            </p>
+            
+                            <h3>Caminho do Banco de Dados:</h3>
+                            <div class="copy-box" id="cmd7">
+                                <span class="tooltip">Copiado!</span>
+                                <div style="display: flex; flex-direction: column;">
+                                    C:\Program Files (x86)\Siap\Banco
+                                </div>
+                                <button onclick="copiar('cmd7')">Copiar</button>
+                            </div>
+            
+                            <h3>Caminho do Executável:</h3>
+                            <div class="copy-box" id="cmd7">
+                                <span class="tooltip">Copiado!</span>
+                                <div style="display: flex; flex-direction: column;">
+                                    C:\Program Files (x86)\Siap
+                                </div>
+                                <button onclick="copiar('cmd7')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Salve as alterações.
+                            </p>
+            
+                            <p>
+                                O <strong>Siap</strong> iniciará um loop de erros. Abra o
+                                <strong>gerenciador de tarefas</strong> com o atalho
+                                <strong>CTRL + SHIFT + ESC</strong>, procure a tarefa
+                                <strong>Login.exe</strong> e finalize a tarefa.
+                            </p>
+            
+                            <p>
+                                Volte para a Área de Trabalho e execute como administrador o
+                                <strong>Gerenciador de Registros</strong>, preencha com as
+                                seguintes informações.
+                            </p>
+            
+                            <h3>Servidor:</h3>
+                            <div class="copy-box" id="cmd8">
+                                <span class="tooltip">Copiado!</span>
+                                Remoto
+                                <button onclick="copiar('cmd8')">Copiar</button>
+                            </div>
+            
+                            <h3>Nome do Servidor:</h3>
+                            <div class="copy-box" id="cmd9">
+                                <span class="tooltip">Copiado!</span>
+                                <span>172.18.25.2</span>
+                                <button onclick="copiar('cmd9')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Salve as alterações clicando em <strong>Gravar ✔</strong>.
+                            </p>
+            
+                            <p>
+                                Com isso o <strong>Siap</strong> Estará completamente
+                                instalado. Agora finalizaremos com algumas configurações
+                                importantes para o funcionamento correto do sistema.
+                            </p>
+            
+                            <p>
+                                Primeiramente clique no ícone do <strong>Siap</strong> na
+                                Área de Trabalho com o botão direito, selecione
+                                <strong>propriedades</strong>, clique em <strong>alterar
+                                    ícone</strong> e selecione o ícone que aparece, aplique
+                                e salve as alterações, repita o mesmo processo mais uma vez
+                                para o ícone ser anexado.
+                            </p>
+            
+                            <p>
+                                Agora Execute novamente o <strong>Siap</strong> como
+                                administrador, a tela de login se abrirá, realize o primeiro
+                                login com as credenciais:
+                            </p>
+            
+                            <h3>Usuário:</h3>
+                            <div class="copy-box" id="cmd10">
+                                <span class="tooltip">Copiado!</span>
+                                atualizador
+                                <button onclick="copiar('cmd10')">Copiar</button>
+                            </div>
+            
+                            <h3>Senha:</h3>
+                            <div class="copy-box" id="cmd11">
+                                <span class="tooltip">Copiado!</span>
+                                1
+                                <button onclick="copiar('cmd11')">Copiar</button>
+                            </div>
+            
+                            <p>
+                                Na aba <strong>Computadores</strong> role a lista de
+                                registros até o final, encontre o nome do
+                                <strong>HOST</strong> no qual está sendo instalado o
+                                <strong>Siap</strong>, selecione-o clicando sobre e mude o
+                                campo <strong>Seleção do Setor</strong> para <strong>
+                                    Windows 7 64 bits</strong>. Salve as alterações e feche
+                                o sistema.
+                            </p>
+            
+                            <p>
+                                Pronto! Agora o computador está pronto para uso nas
+                                dependências da Prefeitura.
+                            </p>
+            
+                        </div>
+                    </details>
+        
+                    <div class="footer">✔ Agora seu pc estará pronto para o uso...</div>
                 </div>
 
-                <p>
-                    Após realizar a ativação seu <strong>RealVNC</strong> agora será necessário configurar o <strong>firewall</strong> da máquina para permitir a comunicação com a porta utilizada pelo serviço do <strong>RealVNC</strong>. 
-                </p>
+            </main>
 
-                <p>
-                    Para realizar a liberação no <strong>firewall</strong> abra o <strong>prompt de comando/cmd</strong> executando-o como administrador.
-                </p>
-
-                <p>
-                    Copie e cole a instrução a seguir no terminal:
-                </p>
-
-                <div class="copy-box" id="cmd3">
-                    <span class="tooltip">Copiado!</span>
-                    netsh advfirewall firewall add rule name="RealVnc" protocol=TCP dir=in localport=5900 action=allow
-                    <button onclick="copiar('cmd3')">Copiar</button>
-                </div>
-
-            </div>
-
-            <!-- Instalação do SIAP -->
-            <div class="card">
-
-                <h2>Instalação e configuração do SIAP</h2>
-
-                <p>
-                    Para acessar o instalador do <strong>Siap</strong>, abra o explorador de arquivos utilizando o atalho <strong>Win + E</strong>, na barra busca insira o endereço:
-                </p>
-
-                <div class="copy-box" id="cmd4">
-                    <span class="tooltip">Copiado!</span>
-                    \\172.18.25.3\cpd\Sistemas PMTM\Instalacao do siap
-                    <button onclick="copiar('cmd4')">Copiar</button>
-                </div>
-
-                <p>
-                    Copie para sua Área de trabalho o arquivo <strong>instalador.exe</strong> .
-                </p>
-
-                <p>
-                    Para obter os arquivos de atualização necessários na instalação do <strong>Siap</strong> acesse também na barra de busca o endereço:
-                </p>
-
-                <div class="copy-box" id="cmd5">
-                    <span class="tooltip">Copiado!</span>
-                    \\172.18.25.1\atualizacao
-                    <button onclick="copiar('cmd5')">Copiar</button>
-                </div>
-
-                <p>
-                    Selecione todos os arquivos do diretório e copie para uma nova pasta na sua Área de trabalho.
-                </p>
-
-                <p>
-                    Para realizar a instalação execute o <strong>instalador.exe</strong> como administrador.
-                    Siga o instalador avançando e no fim clique em finalizar.
-                </p>
-
-                <p>
-                    Acesse a pasta em que você copiou os arquivos de instalação, selecione todos os arquivos, copie-os para o diretório de instalação do <strong>Siap</strong> em:
-                </p>
-
-                <div class="copy-box" id="cmd6">
-                    <span class="tooltip">Copiado!</span>
-                    C:\Program Files (x86)\Siap
-                    <button onclick="copiar('cmd6')">Copiar</button>
-                </div>
-
-                <p>
-                    Finalizando a cópia volte um nível nas pastas para o diretório:
-                </p>
-
-                <div class="copy-box" id="cmd6">
-                    <span class="tooltip">Copiado!</span>
-                    C:\Program Files (x86)
-                    <button onclick="copiar('cmd6')">Copiar</button>
-                </div>
-
-                <p>
-                    Vá até a pasta <strong>Siap</strong> clique com o botão direito sobre e vá para propriedades.
-                </p>
-
-                <p>
-                    Na aba <strong>Segurança</strong> vá em <strong>Editar</strong> em seguida clique em <strong>Adicionar</strong> e adicione <strong>Todos</strong> na lista.
-                </p>
-
-                <p>
-                    Retorne para a Área de Trabalho execute o <strong>Siap</strong> como administrador.
-                </p>
-
-                <p>
-                    Na janela inicial que abrirá copie e cole os seguintes caminhos nos respectivos campos:
-                </p>
-
-                <h3>Caminho do Banco de Dados:</h3>
-                <div class="copy-box" id="cmd7">
-                    <span class="tooltip">Copiado!</span>
-                    <div style="display: flex; flex-direction: column;">
-                        C:\Program Files (x86)\Siap\Banco
-                    </div>
-                    <button onclick="copiar('cmd7')">Copiar</button>
-                </div>
-
-                <h3>Caminho do Executável:</h3>
-                <div class="copy-box" id="cmd7">
-                    <span class="tooltip">Copiado!</span>
-                    <div style="display: flex; flex-direction: column;">
-                        C:\Program Files (x86)\Siap
-                    </div>
-                    <button onclick="copiar('cmd7')">Copiar</button>
-                </div>
-
-                <p>
-                    Salve as alterações.
-                </p>
-
-                <p>
-                    O <strong>Siap</strong> iniciará um loop de erros. Abra o <strong>gerenciador de tarefas</strong> com o atalho <strong>CTRL + SHIFT + ESC</strong>, procure a tarefa <strong>Login.exe</strong> e finalize a tarefa.
-                </p>
-
-                <p>
-                    Volte para a Área de Trabalho e execute como administrador o <strong>Gerenciador de Registros</strong>, preencha com as seguintes informações.
-                </p>
-
-                <h3>Servidor:</h3>
-                <div class="copy-box" id="cmd8">
-                    <span class="tooltip">Copiado!</span>
-                    Remoto
-                    <button onclick="copiar('cmd8')">Copiar</button>
-                </div>
-
-                <h3>Nome do Servidor:</h3>
-                <div class="copy-box" id="cmd9">
-                    <span class="tooltip">Copiado!</span>
-                    <span>172.18.25.2</span>
-                    <button onclick="copiar('cmd9')">Copiar</button>
-                </div>
-
-                <p>
-                    Salve as alterações clicando em <strong>Gravar ✔</strong>.
-                </p>
-
-                <p>
-                    Com isso o <strong>Siap</strong> Estará completamente instalado. Agora finalizaremos com algumas configurações importantes para o funcionamento correto do sistema.
-                </p>
-
-                <p>
-                    Primeiramente clique no ícone do <strong>Siap</strong> na Área de Trabalho com o botão direito, selecione <strong>propriedades</strong>, clique em <strong>alterar ícone</strong> e selecione o ícone que aparece, aplique e salve as alterações, repita o mesmo processo mais uma vez para o ícone ser anexado.
-                </p>
-
-                <p>
-                    Agora Execute novamente o <strong>Siap</strong> como administrador, a tela de login se abrirá, realize o primeiro login com as credenciais:
-                </p>
-
-                <h3>Usuário:</h3>
-                <div class="copy-box" id="cmd10">
-                    <span class="tooltip">Copiado!</span>
-                    atualizador
-                    <button onclick="copiar('cmd10')">Copiar</button>
-                </div>
-
-                <h3>Senha:</h3>
-                <div class="copy-box" id="cmd11">
-                    <span class="tooltip">Copiado!</span>
-                    1
-                    <button onclick="copiar('cmd11')">Copiar</button>
-                </div>
-
-                <p>
-                    Na aba <strong>Computadores</strong> role a lista de registros até o final, encontre o nome do <strong>HOST</strong> no qual está sendo instalado o <strong>Siap</strong>, selecione-o clicando sobre e mude o campo <strong>Seleção do Setor</strong> para <strong> Windows 7 64 bits</strong>. Salve as alterações e feche o sistema.
-                </p>
-
-                <p>
-                    Pronto! Agora o computador está pronto para uso nas dependências da Prefeitura.
-                </p>
-
-            </div>
-
-            <div class="footer">✔ Agora seu pc estará pronto para o uso...</div>
         </div>
 
     </body>
 
     <script>
 
+        const links = document.querySelectorAll('.sidebar a');
+        const sections = document.querySelectorAll('details.card');
+
+        function setActiveLink(id){
+            links.forEach(link => {
+                link.classList.toggle(
+                    'active',
+                    link.getAttribute('href') === `#${id}`
+                );
+            });
+        }
+
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+
+                const id = this.getAttribute('href').substring(1);
+                const target = document.getElementById(id);
+
+                // abre o details ao clicar no menu
+                if (target && target.tagName === 'DETAILS') {
+                    target.open = true;
+                }
+
+                setActiveLink(id);
+            });
+        });
+
+        sections.forEach(section => {
+            section.addEventListener('toggle', function(){
+                if(this.open){
+                    setActiveLink(this.id);
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+
+            let current = null;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+
+                if(rect.top <= 150 && rect.bottom >= 150){
+                    current = section.id;
+                }
+            });
+
+            if(current){
+                setActiveLink(current);
+            }
+        });
+
         function copiar(id){
 
             const el = document.getElementById(id);
-            const text = el.innerText.replace('Copiado!','').replace('Copiar','').trim();
+
+            const text = el.innerText
+                .replace('Copiado!','')
+                .replace('Copiar','')
+                .trim();
+
             navigator.clipboard.writeText(text);
 
             const tooltip = el.querySelector('.tooltip');
-            tooltip.classList.add('show');
 
-            setTimeout(() => {
-                tooltip.classList.remove('show');
-            }, 1500);
+            if(tooltip){
+                tooltip.classList.add('show');
+
+                setTimeout(() => {
+                    tooltip.classList.remove('show');
+                }, 1500);
+            }
         }
-
-        tooltip.classList.add('show');
-
-        setTimeout(() => {
-            tooltip.classList.remove('show');
-        }, 1500);
 
     </script>
 
